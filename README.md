@@ -62,3 +62,6 @@ https://www.medcalc.org/manual/chi-square-table.php
 
 The degree of freedom was selected and therefore value 6.64 was used as threshold for significance at 0.01
 derived from (http://pbgworks.org/sites/pbgworks.org/files/measuresoflinkagedisequilibrium-111119214123-phpapp01_0.pdf)
+
+Alternatively, p-value could be added using python library (scipy). It has an module called "stats.distributions.chi2.sf", which can calculate the p-value using chi square distribution. This function is updated version of chisqprob (https://docs.scipy.org/doc/scipy-0.19.1/reference/generated/scipy.stats.chisqprob.html). 
+
