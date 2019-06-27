@@ -4,6 +4,7 @@ import pandas as pd
 import sys,os
 import matplotlib.pyplot as plt
 import numpy as np
+import scipy.stats as st
 #col_list=['3DL3','2DS2','2DL2','2DL3','2DP1','2DL1','3DP1','2DL4','3DL1','3DS1','2DL5A','2DL5B','2DS3','2DS5','2DS1','2DS4','3DL2']
 col_list=['3DL3','2DS2','2DL2','2DL3','2DP1','2DL1','3DP1','2DL4','3DL1','3DS1','2DL5','2DS3','2DS5','2DS1','2DS4','3DL2']
 
@@ -27,20 +28,23 @@ for col1 in col_list:
 		if d <0:
 			dmin=max(-p1*q1,-p2*q2)
 			ld=d/dmin
+			assoc='Negative'
 			dmax=None
 		elif d>=0:
 			dmax=min(p1*q2,p2*q1)
 			ld=d/dmax
 			dmin=None
+			assoc='Positive'
 		r2=(d**2)/(p1*p2*q1*q2)
-		pvalue=r2*len(data_file2)
-		row=[col1,col2,x11,x12,x21,x22,p1,p2,q1,q2,d,dmin,dmax,ld,pvalue]
+		chi_square=r2*len(data_file2)
+		pvalue=st.distributions.chi2.sf(chi_square,1)
+		row=[col1,col2,x11,x12,x21,x22,p1,p2,q1,q2,d,dmin,dmax,assoc,ld,chi_square,pvalue]
 		rows.append(row)
 		#df = df.append([col1,col2,x11,x12,x21,x22,p1,p2,q1,q2,d,dmin,dmax,ld],ignore_index=True)
-df=pd.DataFrame(rows,columns=['Gene1','Gene2','x11','x12','x21','x22','p1','p2','q1','q2','d','dmin','dmax','ld','pvalue'])
-df.to_csv("ld_raw_14march.csv",index=False)
-df_pivot=df.pivot_table(index='Gene1',columns='Gene2',values=['ld','pvalue']).round(3).transpose()
+df=pd.DataFrame(rows,columns=['Gene1','Gene2','x11','x12','x21','x22','p1','p2','q1','q2','d','dmin','dmax','association','ld coefficient','chi square','p value'])
+df.to_csv("ld_raw_24june.csv",index=False)
+df_pivot=df.pivot_table(index='Gene1',columns='Gene2',values=['ld coefficient','p value']).round(3).transpose()
 #print df_pivot
 df1= df_pivot.groupby(level=[1,0]).sum()
 
-df1.to_csv('ld_14march.csv')
+df1.to_csv('ld_24june.csv')
