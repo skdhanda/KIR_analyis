@@ -38,10 +38,10 @@ for col1 in col_list:
 		r2=(d**2)/(p1*p2*q1*q2)
 		chi_square=r2*len(data_file2)
 		pvalue=st.distributions.chi2.sf(chi_square,1)
-		row=[col1,col2,x11,x12,x21,x22,p1,p2,q1,q2,d,dmin,dmax,assoc,ld,chi_square,pvalue]
+		row=[col1,col2,x11,x12,x21,x22,p1,p2,q1,q2,d,dmin,dmax,assoc,ld,r2,chi_square,pvalue]
 		rows.append(row)
 		#df = df.append([col1,col2,x11,x12,x21,x22,p1,p2,q1,q2,d,dmin,dmax,ld],ignore_index=True)
-df=pd.DataFrame(rows,columns=['Gene1','Gene2','x11','x12','x21','x22','p1','p2','q1','q2','d','dmin','dmax','association','ld coefficient','chi square','p value'])
+df=pd.DataFrame(rows,columns=['Gene1','Gene2','x11','x12','x21','x22','p1','p2','q1','q2','d','dmin','dmax','association','ld coefficient','r square','chi square','p value'])
 df.to_csv("ld_raw_24june.csv",index=False)
 df_pivot=df.pivot_table(index='Gene1',columns='Gene2',values=['ld coefficient','p value']).round(3).transpose()
 #print df_pivot
