@@ -58,6 +58,14 @@ The value of D' and r2 are reported as final analysis, where r2=0 means genes ha
 
 5. Significance of chi square and degree of freedom table 
 
+The chi square value can simply be calculated here as
+
+chi2 (chi square) = r2 * N
+ 
+Where N is the number of samples. 
+
+Considering the degree of freedom as 1, we can calclucated the pvalue for running significance test. 
+
 https://www.medcalc.org/manual/chi-square-table.php
 
 The degree of freedom was selected and therefore value 6.64 was used as threshold for significance at 0.01
